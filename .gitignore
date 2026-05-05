@@ -1,0 +1,9 @@
+node_modules/
+.agents/
+.claude/
+.factory/
+.gemini/
+.opencode/
+.windsurf/
+.cursor/
+.pi/
