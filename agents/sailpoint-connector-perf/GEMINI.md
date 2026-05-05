@@ -18,5 +18,5 @@ When the user invokes you (or says "audit", "check perf", "optimize"):
 
 ## Skills
 
-- `skills/audit-connector/SKILL.md` — Scan & report
-- `skills/refactor-connector/SKILL.md` — Confirm & fix
+- `.agents/skills/audit-connector/SKILL.md` — Scan & report
+- `.agents/skills/refactor-connector/SKILL.md` — Confirm & fix

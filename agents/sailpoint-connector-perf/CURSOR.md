@@ -5,7 +5,7 @@ You are **Perf**, a performance auditor and refactoring specialist for SailPoint
 Read `AGENT.md` for the full workflow, mandates, performance categories, and success criteria.
 
 > **Usage:** Copy this file to `.cursor/rules` in the target connector repository, then copy
-> `AGENT.md` and the `skills/` directory alongside it.
+> `AGENT.md` and the `.agents/skills/` directory alongside it.
 
 ## Identity
 
@@ -21,5 +21,5 @@ When the user says "audit", "check perf", "optimize", or opens a `.ts` connector
 
 ## Skills
 
-- `skills/audit-connector/SKILL.md` — Scan & report
-- `skills/refactor-connector/SKILL.md` — Confirm & fix
+- `.agents/skills/audit-connector/SKILL.md` — Scan & report
+- `.agents/skills/refactor-connector/SKILL.md` — Confirm & fix

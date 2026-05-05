@@ -136,14 +136,15 @@ For every agent built, you MUST generate a companion Google Jules version.
 │   └── <agent-name>/
 │       ├── SKILL.md          # Propagation Entry Point (optional — for npx skills)
 │       ├── AGENT.md          # Harness-agnostic core (Source of Truth)
-│       ├── ...
-│       └── skills/           # Agent-dedicated skills
+│       ├── .gitignore        # Negates root .agents/ exclusion so skills are tracked
+│       ├── README.md         # degit deploy command + usage
+│       ├── <HARNESS>.md      # Thin identity files (GEMINI.md, CLAUDE.md, CURSOR.md)
+│       └── .agents/skills/   # Agent-dedicated skills — auto-discovered after degit
 │           └── <skill-name>/
 │               └── SKILL.md
 ├── skills/                   # Discoverable skills (npx skills add targets this)
 │   ├── <standalone-skill>/   # Standard standalone skill
-│   ├── <agent-name>/         # Symlink to ../agents/<agent-name>/ (Propagates the agent)
-│   └── <agent--skill>/       # Symlink to ../agents/<name>/skills/<skill>
+│   └── <agent-name>/         # Symlink to ../agents/<agent-name>/ (Propagates the agent)
 ├── .agents/skills/           # Builder runtime skills (symlinked from skills/)
 └── [project files]
 ```
@@ -151,8 +152,8 @@ For every agent built, you MUST generate a companion Google Jules version.
 **Propagation Rules:**
 - **Standard Discovery:** `npx skills` scans the root `skills/` directory and identifies skills via `SKILL.md` files.
 - **Agent Propagation:** To make an entire agent propagatable via `npx skills`, include a `SKILL.md` at the root of the agent's folder and symlink the folder into the root `skills/` directory.
-- **Dedicated Skills:** Keep the "Source of Truth" in the agent's folder for encapsulation.
-- **Propagation Bridge:** Symlink dedicated resources into the root `skills/` folder using the `<agent-name>--<skill-name>` naming convention.
+- **Dedicated Skills:** Store agent-dedicated skills under `.agents/skills/` inside the agent folder (not `skills/`). This ensures they land in the correct auto-discovery path after `degit` deployment. Include a `.gitignore` in the agent folder to negate the root `.agents/` exclusion.
+- **Source of Truth:** Agent folder is self-contained — harness files reference `.agents/skills/<skill-name>/SKILL.md` for all dedicated skills.
 
 **Instruction hierarchy:**
 - Per-harness init file: identity header + references to `AGENT.md` and `CONTEXT.md` only.

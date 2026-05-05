@@ -26,9 +26,10 @@ Every harness file (`GEMINI.md`, `CLAUDE.md`, `CURSOR.md`) is a thin identity he
 ├── CLAUDE.md          # Claude Code       ├─ each just sets identity,
 ├── CURSOR.md          # Cursor            │  then reads AGENT.md
 ├── AGENT.md           # Source of truth  ─┘  (one place to update)
-└── skills/
-    ├── audit-connector/SKILL.md    # Phase 1–2: scan & report
-    └── refactor-connector/SKILL.md # Phase 3–4: confirm & fix
+└── .agents/
+    └── skills/              # Auto-discovered by all harnesses
+        ├── audit-connector/SKILL.md    # Phase 1–2: scan & report
+        └── refactor-connector/SKILL.md # Phase 3–4: confirm & fix
 ```
 
 If you only use one harness, delete the others — they're independent files. Restart your AI agent after install and it will automatically pick up the relevant harness file.
