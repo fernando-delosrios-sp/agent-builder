@@ -1,0 +1,23 @@
+{
+  "name": "agent-builder",
+  "version": "1.0.0",
+  "description": "Meta-agent for designing and building AI agents and skills.",
+  "main": "index.js",
+  "scripts": {
+    "init": "skills experimental_install",
+    "postinstall": "npm run init"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "skills",
+    "meta-agent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@reporails/cli": "^0.5.6",
+    "ctx7": "^0.4.1",
+    "skills": "^1.5.3"
+  }
+}
