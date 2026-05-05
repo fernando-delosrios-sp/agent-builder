@@ -71,7 +71,44 @@ Design the agent architecture. Decide: single agent vs. sub-agents, required ski
 6. Consult `Agent Development` (anthropics/claude-code) when designing agent frontmatter or triggering conditions.
 
 ### Step 3 — Build
-Generate the output bundle for the chosen harness. Agents and their specific skills are isolated in the `agents/` directory, while standalone skills live in `skills/`:
+Generate the output bundle for the chosen harness. Agents and their specific skills are isolated in the `agents/` directory, while standalone skills live in `skills/`.
+
+**Deployment primitive — `degit`:**
+Each agent in `agents/` is deployable as a self-contained unit. The canonical install command is:
+
+```bash
+# Deploy as the project's primary agent (root identity)
+npx degit <github-user>/agent-builder/agents/<agent-name> .
+
+# Deploy as a sub-agent alongside an existing orchestrator
+npx degit <github-user>/agent-builder/agents/<agent-name> agents/<agent-name>
+```
+
+`degit` copies only the agent subfolder — no git history, no full repo. Every agent folder must contain a `README.md` with this deploy command prominently at the top.
+
+**Multi-agent pattern:**
+Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
+
+```
+<project-root>/
+├── GEMINI.md        # Orchestrator harness file
+├── AGENT.md         # Orchestrator core instructions
+├── AGENTS.md        # Sub-agent registry (routing table)
+└── agents/
+    └── <specialist>/   # degit-deployed sub-agent
+        ├── GEMINI.md
+        ├── AGENT.md
+        └── skills/
+```
+
+`AGENTS.md` is the routing table: one section per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
+
+**Architecture rules:**
+- Max two levels: orchestrator → sub-agent. Never deeper.
+- Each sub-agent is self-contained: its own `AGENT.md`, harness file, and `skills/`.
+- The orchestrator delegates; it never duplicates sub-agent logic.
+- Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
+
 
 ```
 <root>/

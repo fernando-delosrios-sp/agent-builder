@@ -58,7 +58,70 @@ As a final step, the builder will help you select MCP servers for your agent's d
 
 The builder outputs a ready-to-paste MCP config block for your harness.
 
+## Deploying an agent
+
+Agents in this repo are deployable standalone units. Use [`degit`](https://github.com/Rich-Harris/degit) to copy only the agent folder into your project — no git history, no full repo clone:
+
+```bash
+# Deploy to your project root (agent becomes the primary AI identity)
+npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> .
+
+# Or deploy as a sub-agent (keeps your existing root agent)
+npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> agents/<agent-name>
+```
+
+**Available agents:**
+
+| Agent | Description | Deploy command |
+|---|---|---|
+| `sailpoint-connector-perf` | Performance auditor for `@sailpoint/connector-sdk` projects | `npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf .` |
+
+Each agent folder contains its own `README.md` with usage instructions, trigger phrases, and upstream skill requirements.
+
+## Multi-agent setup
+
+When a project needs more than one specialist, use an **orchestrator + sub-agents** pattern:
+
+```
+<project-root>/
+├── GEMINI.md        # Orchestrator — routes tasks to sub-agents
+├── AGENT.md         # Orchestrator core instructions
+├── AGENTS.md        # Sub-agent registry (read by all harnesses)
+└── agents/
+    ├── perf/        # npx degit .../sailpoint-connector-perf agents/perf
+    │   ├── GEMINI.md
+    │   ├── AGENT.md
+    │   └── skills/
+    └── security/    # npx degit .../another-agent agents/security
+        ├── GEMINI.md
+        └── AGENT.md
+```
+
+**Deploy the orchestrator:**
+```bash
+# Pull just the harness file you need from this repo (or write your own)
+npx degit fernando-delosrios-sp/agent-builder/agents/<orchestrator> .
+```
+
+**Register sub-agents in `AGENTS.md`:**
+```markdown
+## agents/perf — SailPoint Connector Performance Auditor
+Audits and refactors connector performance. Invoke when the user asks to
+audit, optimize, or fix connector performance issues.
+
+## agents/security — Security Reviewer
+Reviews connector code for credential handling and data exposure issues.
+```
+
+**Rules:**
+- Max two levels deep: orchestrator → sub-agent. Never orchestrator → sub-agent → sub-agent.
+- Each sub-agent is self-contained: its own `AGENT.md`, harness file, and `skills/`.
+- The orchestrator delegates; it does not duplicate sub-agent logic.
+- Sub-agents can be activated directly (by `cd agents/perf` in some harnesses) or invoked by the orchestrator when the user's request matches their domain.
+
 ## Project structure
+
+
 
 ```
 agent-builder/
