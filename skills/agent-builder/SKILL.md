@@ -59,6 +59,12 @@ After the brief is complete, run the skill pipeline:
 
 Design the agent architecture and emit the output bundle for the target harness.
 
+**Mandatory Bundle Contents:**
+1. **Target Harness File** (e.g., `GEMINI.md`, `CLAUDE.md`).
+2. **Core Instructions** (`AGENT.md`).
+3. **Google Jules Companion** (`.jules/<agent-name>.md`) — following the persona-driven pattern in `AGENT.md`.
+4. **README.md** with `degit` deployment command.
+
 **Path Rules:**
 - The agent bundle goes into `agents/<agent-name>/`.
 - Skills specifically created for this agent go into `agents/<agent-name>/skills/`.

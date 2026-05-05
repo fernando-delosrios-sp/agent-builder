@@ -73,6 +73,12 @@ Design the agent architecture. Decide: single agent vs. sub-agents, required ski
 ### Step 3 — Build
 Generate the output bundle for the chosen harness. Agents and their specific skills are isolated in the `agents/` directory, while standalone skills live in `skills/`.
 
+**Mandatory Outputs:**
+1. **Primary Harness File:** (e.g., `GEMINI.md`, `CLAUDE.md`) — The entry point.
+2. **Core Instructions:** (`AGENT.md`) — The source of truth for mandates and workflow.
+3. **Google Jules Version:** (`.jules/<agent-name>.md`) — A persona-driven companion for the Jules harness.
+4. **README.md:** With `degit` installation instructions.
+
 **Deployment primitive — `degit`:**
 Each agent in `agents/` is deployable as a self-contained unit. The canonical install command is:
 
@@ -110,6 +116,18 @@ Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
 - Each sub-agent is self-contained: its own `AGENT.md`, harness file, and `skills/`.
 - The orchestrator delegates; it never duplicates sub-agent logic.
 - Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
+
+**Google Jules Output:**
+For every agent built, you MUST generate a companion Google Jules version.
+- **Path:** `agents/<agent-name>/.jules/<agent-name>.md`
+- **Format:** Persona-driven, domain-obsessed, and designed for self-iteration:
+  - **Persona & Emoji:** A catchy name and emoji (e.g., "Bolt" ⚡).
+  - **Mission:** A single-sentence mission statement.
+  - **Boundaries:** Clear "Always do", "Ask first", and "Never do" lists.
+  - **Philosophy:** 3–5 core beliefs driving the agent.
+  - **Journaling Mandate:** Instructions for the agent to read its own file and append CRITICAL learnings (not routine logs) to a "Journal" section.
+  - **Daily Process:** A numbered, emoji-tagged workflow (e.g., 1. 🔍 Hunt, 2. ⚡ Select, 3. 🔧 Implement, 4. ✅ Verify, 5. 🎁 Present).
+  - **Favorites/Avoids:** Lists of patterns the agent prioritizes or explicitly avoids to maintain quality/readability.
 
 
 ```
