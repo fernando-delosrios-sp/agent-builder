@@ -12,22 +12,24 @@ Run this command from the **root of your connector project**:
 npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf .
 ```
 
-This downloads the full agent (harness files + skills) into your current directory. No git history, no full repo clone.
+This downloads the full agent into your current directory — all harness files and skills in one shot. No git history, no full repo clone.
 
-### What gets installed
+### Multi-harness by default
+
+Every harness file (`GEMINI.md`, `CLAUDE.md`, `CURSOR.md`) is a thin identity header that delegates to the shared `AGENT.md`. Deploy once — **all your AI tools become Perf simultaneously**:
 
 ```
 <your-connector-project>/
-├── GEMINI.md          # Gemini CLI — activates "Perf" identity
-├── CLAUDE.md          # Claude Code — activates "Perf" identity
-├── CURSOR.md          # Cursor — activates "Perf" identity
-├── AGENT.md           # Harness-agnostic core: workflow, mandates, categories
+├── GEMINI.md          # Gemini CLI       ─┐
+├── CLAUDE.md          # Claude Code       ├─ each just sets identity,
+├── CURSOR.md          # Cursor            │  then reads AGENT.md
+├── AGENT.md           # Source of truth  ─┘  (one place to update)
 └── skills/
     ├── audit-connector/SKILL.md    # Phase 1–2: scan & report
     └── refactor-connector/SKILL.md # Phase 3–4: confirm & fix
 ```
 
-After install, restart your AI agent. It will automatically load `GEMINI.md` (or the relevant harness file) and become **Perf**.
+If you only use one harness, delete the others — they're independent files. Restart your AI agent after install and it will automatically pick up the relevant harness file.
 
 ### Install upstream skills
 
@@ -63,16 +65,16 @@ The agent always **audits before fixing** and **proposes every change before app
 | Medium | Caching | Repeated identical API calls with no cache |
 | Low | Logging Overhead | `console.log` inside loops or hot paths |
 
-## Multi-agent setup
+## Deploying alongside an existing agent (orchestrator setup)
 
-If your project already has an orchestrator agent (e.g., a root `GEMINI.md`), deploy this agent as a **sub-agent** instead:
+If your project already has a root `GEMINI.md` / `CLAUDE.md` (an existing primary agent), deploy Perf as a **sub-agent** instead of overwriting your root files:
 
 ```bash
-# Deploy into a subdirectory, not the project root
+# Deploy into a subdirectory — harness files stay out of the root
 npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf agents/perf
 ```
 
-Then reference it from your orchestrator's `AGENTS.md`:
+Then register it in your orchestrator's `AGENTS.md` so all harnesses can route to it:
 
 ```markdown
 ## agents/perf — SailPoint Connector Performance Auditor
@@ -81,7 +83,9 @@ Delegates performance auditing and refactoring to the Perf agent.
 Invoke when the user asks to audit, optimize, or fix connector performance.
 ```
 
-See the [agent-builder README](../../README.md#multi-agent-setup) for the full multi-agent architecture pattern.
+The sub-agent still gets all harness files under `agents/perf/` — Gemini, Claude, and Cursor can all reach it. The orchestrator handles routing; each sub-agent file handles identity.
+
+See the [agent-builder README](../../README.md#multi-agent-setup) for the full orchestrator pattern.
 
 ## Source
 
