@@ -78,11 +78,13 @@ Each agent in `agents/` is deployable as a self-contained unit. The canonical in
 
 ```bash
 # Deploy as the project's primary agent (root identity)
-npx degit <github-user>/agent-builder/agents/<agent-name> .
+npx degit <github-user>/agent-builder/agents/<agent-name> . --force
 
 # Deploy as a sub-agent alongside an existing orchestrator
-npx degit <github-user>/agent-builder/agents/<agent-name> agents/<agent-name>
+npx degit <github-user>/agent-builder/agents/<agent-name> agents/<agent-name> --force
 ```
+
+`--force` is required when the destination directory already has files (which is always the case for an existing project).
 
 `degit` copies only the agent subfolder — no git history, no full repo. Every agent folder must contain a `README.md` with this deploy command prominently at the top.
 

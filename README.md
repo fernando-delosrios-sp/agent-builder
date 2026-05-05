@@ -64,17 +64,18 @@ Agents in this repo are deployable standalone units. Use [`degit`](https://githu
 
 ```bash
 # Deploy to your project root (agent becomes the primary AI identity)
-npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> .
+npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> . --force
 
-# Or deploy as a sub-agent (keeps your existing root agent)
-npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> agents/<agent-name>
+# Or deploy as a sub-agent alongside an existing orchestrator
+npx degit fernando-delosrios-sp/agent-builder/agents/<agent-name> agents/<agent-name> --force
 ```
 
-**Available agents:**
+`--force` is required when the destination directory already has files (which is always the case for an existing project).
 
 | Agent | Description | Deploy command |
 |---|---|---|
-| `sailpoint-connector-perf` | Performance auditor for `@sailpoint/connector-sdk` projects | `npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf .` |
+| `sailpoint-connector-perf` | Performance auditor for `@sailpoint/connector-sdk` projects | `npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf . --force` |
+
 
 Each agent folder contains its own `README.md` with usage instructions, trigger phrases, and upstream skill requirements.
 
@@ -100,7 +101,7 @@ When a project needs more than one specialist, use an **orchestrator + sub-agent
 **Deploy the orchestrator:**
 ```bash
 # Pull just the harness file you need from this repo (or write your own)
-npx degit fernando-delosrios-sp/agent-builder/agents/<orchestrator> .
+npx degit fernando-delosrios-sp/agent-builder/agents/<orchestrator> . --force
 ```
 
 **Register sub-agents in `AGENTS.md`:**

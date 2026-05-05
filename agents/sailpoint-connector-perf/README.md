@@ -9,8 +9,10 @@ A performance auditor and refactoring specialist for [`@sailpoint/connector-sdk`
 Run this command from the **root of your connector project**:
 
 ```bash
-npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf .
+npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf . --force
 ```
+
+`--force` is required when deploying into an existing project directory (which is always the case).
 
 This downloads the full agent into your current directory — all harness files and skills in one shot. No git history, no full repo clone.
 
@@ -71,7 +73,7 @@ If your project already has a root `GEMINI.md` / `CLAUDE.md` (an existing primar
 
 ```bash
 # Deploy into a subdirectory — harness files stay out of the root
-npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf agents/perf
+npx degit fernando-delosrios-sp/agent-builder/agents/sailpoint-connector-perf agents/perf --force
 ```
 
 Then register it in your orchestrator's `AGENTS.md` so all harnesses can route to it:
