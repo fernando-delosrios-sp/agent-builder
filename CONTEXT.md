@@ -34,15 +34,17 @@ Rule: root files reference sub-files; never duplicate content across levels.
 
 ```
 <root>/
-├── init.js                    # Bootstrap — run before agent-builder / skill-builder
-├── GEMINI.md / CLAUDE.md / …  # Per-harness thin init
-├── AGENT.md                   # Harness-agnostic core instructions
-├── AGENTS.md                  # Sub-agent registry (multi-agent only)
-├── CONTEXT.md                 # This file — domain model
-├── skills/                    # Publishable skills (deployed via npx skills add)
-│   └── <skill-name>/
-│       └── SKILL.md
-└── .agents/skills/            # Runtime skills (auto-loaded by skills CLI)
+├── agents/                   # Isolated agents directory
+│   └── <agent-name>/
+│       ├── SKILL.md          # Entry point for npx skills
+│       ├── AGENT.md          # Agent mandates (Source of Truth)
+│       └── ...
+├── skills/                   # Discoverable skills (npx skills add)
+│   ├── <standalone-skill>/   # Standard standalone skill
+│   ├── <agent-name>/         # Symlink to ../agents/<agent-name>/
+│   └── <agent--skill>/       # Symlink to ../agents/<name>/skills/<skill>
+├── .agents/skills/           # Builder runtime skills (internal)
+└── init.js                   # Bootstrap script
 ```
 
 ## Skill Pipeline Scoring

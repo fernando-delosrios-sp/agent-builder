@@ -71,20 +71,31 @@ Design the agent architecture. Decide: single agent vs. sub-agents, required ski
 6. Consult `Agent Development` (anthropics/claude-code) when designing agent frontmatter or triggering conditions.
 
 ### Step 3 — Build
-Generate the output bundle for the chosen harness:
+Generate the output bundle for the chosen harness. Agents and their specific skills are isolated in the `agents/` directory, while standalone skills live in `skills/`:
 
 ```
 <root>/
-├── CLAUDE.md / GEMINI.md     # Per-harness thin init — references AGENT.md
-├── AGENT.md                  # Harness-agnostic core instructions (this file)
-├── AGENTS.md                 # Registry of sub-agents (if multi-agent)
-├── CONTEXT.md                # Domain language and architecture
-├── skills/                   # Custom and publishable skills
-│   └── <skill-name>/
-│       └── SKILL.md
-├── .agents/skills/           # Runtime skills (auto-loaded by skills CLI)
+├── agents/                   # Isolated agents
+│   └── <agent-name>/
+│       ├── SKILL.md          # Propagation Entry Point (optional — for npx skills)
+│       ├── AGENT.md          # Harness-agnostic core (Source of Truth)
+│       ├── ...
+│       └── skills/           # Agent-dedicated skills
+│           └── <skill-name>/
+│               └── SKILL.md
+├── skills/                   # Discoverable skills (npx skills add targets this)
+│   ├── <standalone-skill>/   # Standard standalone skill
+│   ├── <agent-name>/         # Symlink to ../agents/<agent-name>/ (Propagates the agent)
+│   └── <agent--skill>/       # Symlink to ../agents/<name>/skills/<skill>
+├── .agents/skills/           # Builder runtime skills (symlinked from skills/)
 └── [project files]
 ```
+
+**Propagation Rules:**
+- **Standard Discovery:** `npx skills` scans the root `skills/` directory and identifies skills via `SKILL.md` files.
+- **Agent Propagation:** To make an entire agent propagatable via `npx skills`, include a `SKILL.md` at the root of the agent's folder and symlink the folder into the root `skills/` directory.
+- **Dedicated Skills:** Keep the "Source of Truth" in the agent's folder for encapsulation.
+- **Propagation Bridge:** Symlink dedicated resources into the root `skills/` folder using the `<agent-name>--<skill-name>` naming convention.
 
 **Instruction hierarchy:**
 - Per-harness init file: identity header + references to `AGENT.md` and `CONTEXT.md` only.

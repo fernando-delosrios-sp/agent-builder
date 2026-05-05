@@ -52,11 +52,18 @@ After the brief is complete, run the skill pipeline:
 1. Generate search queries from "Allowed Actions" and "Mandatory Tools/MCPs" in the brief.
 2. Run `find-skills` for each query. Score candidates: verification status, reputation, safety, match quality.
 3. **If match > 0.8** → Buy (reference the existing skill in the output bundle).
-4. **If no match** → Make: invoke `skill-builder`, passing the Requirements Brief as context. `skill-builder` will skip its own interview phase since the brief is already complete.
+4. **If no match** → Make: invoke `skill-builder`, passing the Requirements Brief as context. Explicitly instruct `skill-builder` to target the `agents/<agent-name>/skills/` directory for the new skill.
 
 ## Step 3 — Architecture & Build
 
-Design the agent architecture and emit the output bundle for the target harness. See `GEMINI.md` Step 2–3 for the full architecture rules and file layout.
+Design the agent architecture and emit the output bundle for the target harness.
+
+**Path Rules:**
+- The agent bundle goes into `agents/<agent-name>/`.
+- Skills specifically created for this agent go into `agents/<agent-name>/skills/`.
+- Reused/Standalone skills go into `skills/`.
+
+See `AGENT.md` Step 3 for the full architecture rules and file layout.
 
 ## Step 4 — QA
 

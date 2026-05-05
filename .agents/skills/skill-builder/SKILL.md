@@ -36,10 +36,14 @@ Stop when you have enough to write a confident first draft.
 
 ## Step 2 — Draft
 
-Write the skill using the standard structure:
+Write the skill using the standard structure.
+
+**Path Rules:**
+- **Standalone calls:** The skill directory goes into `./skills/`.
+- **Internal calls (from agent-builder):** The skill directory goes into `./agents/<agent-name>/skills/`.
 
 ```
-skill-name/
+<skill-name>/
 ├── SKILL.md          # Required. YAML frontmatter + instructions. Keep under 100 lines.
 ├── REFERENCE.md      # Optional. Detailed docs if SKILL.md would exceed 100 lines.
 ├── EXAMPLES.md       # Optional. Concrete usage examples.
