@@ -1,4 +1,5 @@
 node_modules/
+# .agents/skills/ is local-only — fully restored by `npm run init`
 .agents/
 .claude/
 .factory/
@@ -7,3 +8,4 @@ node_modules/
 .windsurf/
 .cursor/
 .pi/
+

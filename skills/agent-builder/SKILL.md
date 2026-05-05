@@ -15,11 +15,12 @@ Transforms a vague user request into a fully specified agent: requirements brief
 
 Produce a validated requirements brief that drives architecture decisions, skill selection, MCP configuration, and harness-compatible output generation.
 
-## Step 1 — Grill (Requirements)
+## Step 1 — Discover (Requirements)
 
-Interview the user until all fields in the Completeness Threshold are resolved. Do not move to the next topic until the current one is settled or explicitly deferred.
+**CRITICAL RULE — ONE QUESTION PER TURN:**
+Ask **exactly one question** per response. Wait for the user's answer before asking the next one. Never batch questions. If a topic has an obvious default, propose it as a recommendation and ask the user to confirm or override — that counts as your one question for the turn.
 
-**Walk the Design Tree:**
+Work through the Design Tree in order, one item at a time:
 1. **Outcome First** — what does the agent accomplish? Define success criteria before decomposing into tasks.
 2. **Scope & Persona** — what is the agent's role and boundaries?
 3. **Runtime Context** — where does it run? (local CLI, CI/CD, cloud, IDE harness)
@@ -29,7 +30,7 @@ Interview the user until all fields in the Completeness Threshold are resolved. 
 7. **Allowed Actions** — read-only vs. write-capable vs. shell execution.
 8. **Latency/Cost** — performance and budget constraints.
 
-**Propose recommendations** for standard/obvious choices rather than asking open-ended questions.
+Do not move to the next item until the current one is resolved or the user explicitly defers it. When in doubt, propose a sensible recommendation and ask for confirmation.
 
 ### Completeness Threshold
 
@@ -67,4 +68,16 @@ See `AGENT.md` Step 3 for the full architecture rules and file layout.
 
 ## Step 4 — QA
 
-Run `npx @reporails/cli check` on all generated instruction files. An agent is Ready only when no Critical/High findings remain.
+**Before running QA**, read `.agents/skills/agent-development/SKILL.md` to verify that all agent frontmatter and triggering conditions in the generated bundle conform to the canonical patterns documented there.
+
+Then run the diagnostics tool on all generated instruction files:
+
+```bash
+npx @reporails/cli check
+```
+
+Parse the output:
+- **Critical/High findings** → auto-fix or present a numbered remediation checklist to the user.
+- **Medium/Low findings** → surface them but do not block.
+
+An agent is **Ready** only when: no Critical/High findings remain and frontmatter has been validated against `agent-development` patterns.
