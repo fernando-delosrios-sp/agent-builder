@@ -1,5 +1,0 @@
-# Re-include agent-dedicated skills so they are tracked and deployed via degit.
-# Overrides the root .gitignore rule that excludes all .agents/ directories.
-!.agents/
-!.agents/skills/
-!.agents/skills/**
