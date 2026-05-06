@@ -124,13 +124,19 @@ npx @reporails/cli check
 - An agent is "Ready" only when: score ≥ threshold, no Critical/High findings, self-assessment loop is initialized.
 
 ### Step 5 — MCP Configuration
-Guide the user through selecting MCP servers relevant to their agent's domain:
+Use the `find-mcp` skill to select and configure MCP servers for the agent:
 
-1. Ask the user about their agent's domains (e.g., web browsing, database, cloud, version control, communication).
-2. Suggest matching MCP servers from the catalogue at https://mcpservers.org/ and https://mcpservers.org/remote-mcp-servers.
-3. Emit a ready-to-paste MCP configuration block for the user's harness.
+1. Invoke `find-mcp` with the agent's domain and target harness from the requirements brief.
+2. Present ranked candidates to the user for confirmation.
+3. Generate and append the MCP configuration block to the agent's harness file(s).
+4. Note any global config paths (e.g., `~/.claude_desktop_config.json`) that need manual updating.
 
-**Common MCP categories:** Search, Web Scraping, Communication, Productivity, Development, Database, Cloud Service, File System, Version Control.
+**Config formats per harness:**
+- Claude Code → `~/.claude_desktop_config.json` (JSON object, `mcpServers` key)
+- Cursor → `cursor.mcp.json` (project or global, JSON object, `mcpServers` key)
+- Gemini CLI → `gemini.mcp.json` (project root, JSON array)
+
+> Skip this step if no MCPs are relevant to the agent's domain.
 
 ## Agent Archetypes
 

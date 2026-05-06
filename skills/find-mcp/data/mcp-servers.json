@@ -1,0 +1,644 @@
+[
+  {
+    "id": "anki-mcp-desktop",
+    "slug": "anki-mcp/anki-mcp-desktop",
+    "name": "Anki MCP",
+    "description": "A MCP server that enables AI assistants to interact with Anki, the spaced repetition flashcard application.",
+    "url": "https://github.com/ankimcp/anki-mcp-server",
+    "category": "productivity",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-anki"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "mcp-server-browserbase",
+    "slug": "browserbase/mcp-server-browserbase",
+    "name": "Browserbase",
+    "description": "Automate browser interactions in the cloud (e.g. web navigation, data extraction, form filling, and more)",
+    "url": "https://github.com/browserbase/mcp-server-browserbase",
+    "category": "web-scraping",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@browserbase/mcp-server-browserbase"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "github-com-chromedevtools-chrome-devtools-mcp",
+    "slug": "github-com-chromedevtools-chrome-devtools-mcp",
+    "name": "Chrome DevTools MCP",
+    "description": "chrome-devtools-mcp lets your coding agent (such as Gemini, Claude, Cursor or Copilot) control and inspect a live Chrome browser",
+    "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@chromedevtools/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "mcp-server-cloudflare",
+    "slug": "cloudflare/mcp-server-cloudflare",
+    "name": "Cloudflare",
+    "description": "Deploy, configure & interrogate your resources on the Cloudflare developer platform (e.g. Workers/KV/R2/D1)",
+    "url": "https://github.com/cloudflare/mcp-server-cloudflare",
+    "category": "cloud-service",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cloudflare/mcp-server-cloudflare"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "context7-mcp",
+    "slug": "upstash/context7-mcp",
+    "name": "Context 7",
+    "description": "Up-to-date Docs For Any Cursor Prompt",
+    "url": "https://github.com/upstash/context7-mcp",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "deepwiki",
+    "slug": "devin/deepwiki",
+    "name": "DeepWiki by Devin",
+    "description": "Remote, no-auth MCP server providing AI-powered codebase context and answers",
+    "url": "https://docs.devin.ai/work-with-devin/deepwiki-mcp",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@devin/deepwiki-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "mcp-server",
+    "slug": "e2b-dev/mcp-server",
+    "name": "E2B",
+    "description": "Run code in secure sandboxes hosted by E2B",
+    "url": "https://github.com/e2b-dev/mcp-server",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@e2b-dev/mcp-server"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "exa-mcp-server",
+    "slug": "exa-labs/exa-mcp-server",
+    "name": "Exa",
+    "description": "Search Engine made for AIs by Exa",
+    "url": "https://github.com/exa-labs/exa-mcp-server",
+    "category": "search",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@exa-labs/exa-mcp-server"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "github-com-firecrawl-firecrawl-mcp-server",
+    "slug": "github-com-firecrawl-firecrawl-mcp-server",
+    "name": "Firecrawl MCP",
+    "description": "Adds powerful web scraping and search capabilities to LLM clients like Cursor and Claude.",
+    "url": "https://github.com/firecrawl/firecrawl-mcp-server",
+    "category": "web-scraping",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@github-com-firecrawl-firecrawl-mcp-server"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "github-mcp-server",
+    "slug": "github/github-mcp-server",
+    "name": "GitHub",
+    "description": "GitHub's official MCP Server",
+    "url": "https://github.com/github/github-mcp-server",
+    "category": "version-control",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "mcp",
+    "slug": "google/mcp",
+    "name": "Google MCP Servers",
+    "description": "Collection of Google's official MCP servers",
+    "url": "https://github.com/google/mcp",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@google/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "github-com-minimax-ai-minimax-mcp",
+    "slug": "github-com-minimax-ai-minimax-mcp",
+    "name": "MiniMax MCP",
+    "description": "Interact with MiniMax's powerful Text-to-Speech, image, and video generation APIs.",
+    "url": "https://github.com/MiniMax-AI/MiniMax-MCP",
+    "category": "cloud-service",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@minimax-ai/minimax-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "next-devtools-mcp",
+    "slug": "vercel/next-devtools-mcp",
+    "name": "Next.js DevTools MCP",
+    "description": "next-devtools-mcp is a MCP server that provides Next.js development tools and utilities for AI coding assistants like Claude and Cursor.",
+    "url": "https://github.com/vercel/next-devtools-mcp",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@vercel/next-devtools-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "notebooklm-mcp",
+    "slug": "pleaseprompto/notebooklm-mcp",
+    "name": "NotebookLM MCP Server",
+    "description": "Let your CLI agents (Claude, Cursor, Codex...) chat directly with NotebookLM for zero-hallucination answers based on your own notebooks",
+    "url": "https://github.com/PleasePrompto/notebooklm-mcp",
+    "category": "productivity",
+    "official": false,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pleaseprompto/notebooklm-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "playwright-mcp",
+    "slug": "microsoft/playwright-mcp",
+    "name": "Playwright",
+    "description": "Playwright MCP server",
+    "url": "https://github.com/microsoft/playwright-mcp",
+    "category": "web-scraping",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-playwright"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "docs-proxyman-com-mcp-md",
+    "slug": "docs-proxyman-com-mcp-md",
+    "name": "Proxyman MCP",
+    "description": "Proxyman MCP allows AI to inspect HTTP traffic, create debugging rules, and control Proxyman - all through natural language conversations.",
+    "url": "https://docs.proxyman.com/mcp.md",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@proxyman/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "supabase-mcp",
+    "slug": "supabase-community/supabase-mcp",
+    "name": "Supabase",
+    "description": "Connects to Supabase platform for database, auth, edge functions and more.",
+    "url": "https://github.com/supabase-community/supabase-mcp",
+    "category": "database",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase-community/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "xcodebuildmcp",
+    "slug": "cameroncooke/xcodebuildmcp",
+    "name": "XcodeBuildMCP",
+    "description": "A Model Context Protocol (MCP) server and CLI that provides tools for agent use when working on iOS and macOS projects.",
+    "url": "https://github.com/getsentry/XcodeBuildMCP",
+    "category": "development",
+    "official": false,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@xcodebuildmcp/xcodebuildmcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "ticketdesk-ai-mcp",
+    "slug": "ticketdesk-ai-mcp",
+    "name": "Ticketdesk AI MCP",
+    "description": "AI Agents for Customer Support",
+    "url": "https://github.com/ticketdesk-ai/ticketdesk-mcp",
+    "category": "productivity",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ticketdesk-ai/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "on-pageai-seo-mcp",
+    "slug": "on-pageai-seo-mcp",
+    "name": "On-Page.ai SEO MCP",
+    "description": "Search-focused on-page SEO audits, entity coverage, competitor gaps, and internal-link opportunities for AI agents.",
+    "url": "https://api.on-page.ai/mcp/docs",
+    "category": "search",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@on-pageai/seo-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "compeller-mcp",
+    "slug": "compeller-mcp",
+    "name": "Compeller",
+    "description": "Create AI music videos and audio-reactive visuals from songs through MCP.",
+    "url": "https://compeller.ai/api/mcp/docs.md",
+    "category": "other",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@compeller/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "lightrun-mcp-server",
+    "slug": "lightrun-platform/lightrun-mcp-server",
+    "name": "Lightrun",
+    "description": "AI-powered live runtime debugging with Lightrun production context.",
+    "url": "https://github.com/lightrun-platform/lightrun-mcp-server",
+    "category": "development",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@lightrun-platform/mcp-server"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "ploi-cloud-documentation-ai-intro",
+    "slug": "ploi-cloud-documentation-ai-intro",
+    "name": "Ploi Cloud",
+    "description": "European cloud hosting. Use your favorite AI coding assistant to easily deploy and manage apps on Ploi Cloud.",
+    "url": "https://ploi.cloud/documentation/ai/intro",
+    "category": "cloud-service",
+    "official": true,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ploi-cloud/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "infomaniak-mcp-agent",
+    "slug": "mogacode-ma/infomaniak-mcp-agent",
+    "name": "infomaniak-mcp-agent",
+    "description": "Unofficial agentic MCP server for Infomaniak, the Swiss sovereign cloud. 54 tools across web hosting, mail, kDrive, domains, DNS and AI.",
+    "url": "https://github.com/Mogacode-ma/infomaniak-mcp-agent",
+    "category": "productivity",
+    "official": false,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mogacode-ma/infomaniak-mcp-agent"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "pretensor",
+    "slug": "pretensor-ai/pretensor",
+    "name": "Pretensor",
+    "description": "Connect your data architecture, create a knowledge graph and serve MCP tools for AI to retrieve precomputed models, connections and context.",
+    "url": "https://github.com/pretensor-ai/pretensor",
+    "category": "development",
+    "official": false,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pretensor-ai/mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "maagpi-images-mcp",
+    "slug": "vamsi-kodimela/maagpi-images-mcp",
+    "name": "Maagpi Images MCP",
+    "description": "Google AI studio based imageneration MCP with option to extend it to other providers",
+    "url": "https://github.com/vamsi-kodimela/maagpi-images-mcp",
+    "category": "other",
+    "official": false,
+    "installs": "medium",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@maagpi/images-mcp"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "github-mcp",
+    "name": "GitHub",
+    "description": "Interact with GitHub repositories, issues, PRs, and workflows. Supports code review, file operations, and CI/CD management.",
+    "category": "version-control",
+    "official": true,
+    "url": "https://mcpservers.org/servers/github/github-mcp-server",
+    "installs": "high",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ]
+    },
+    "source": "auto"
+  },
+  {
+    "id": "filesystem-mcp",
+    "name": "Filesystem",
+    "description": "Read, write, and manage files and directories. Essential for agents that need to work with local project files.",
+    "category": "file-system",
+    "official": true,
+    "url": "https://mcpservers.org/category/file-system",
+    "installs": "high",
+    "harnesses": [
+      "claude_code",
+      "cursor",
+      "gemini"
+    ],
+    "config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem"
+      ]
+    },
+    "source": "auto"
+  }
+]

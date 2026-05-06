@@ -74,5 +74,20 @@ if (!fs.existsSync(SKILLS_SRC)) {
   }
 }
 
+// ── Step 3: Refresh MCP server catalogue ──────────────────────────────────
+console.log('\n📦 Fetching MCP server catalogue from mcpservers.org...');
+const fetchScript = path.join(SKILLS_SRC, 'find-mcp', 'scripts', 'fetch-mcp-servers.js');
+if (fs.existsSync(fetchScript)) {
+  const fetchResult = spawnSync(npx, ['-y', 'node', fetchScript], {
+    stdio: 'inherit',
+    shell: true,
+  });
+  if (fetchResult.status !== 0) {
+    console.warn('⚠️  MCP catalogue fetch failed — continuing anyway.');
+  }
+} else {
+  console.log('   find-mcp not found — skipping MCP catalogue refresh.');
+}
+
 console.log('\n🎉 All done. You\'re ready to use agent-builder and skill-builder.');
 

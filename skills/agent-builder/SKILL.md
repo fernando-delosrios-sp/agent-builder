@@ -81,3 +81,17 @@ Parse the output:
 - **Medium/Low findings** → surface them but do not block.
 
 An agent is **Ready** only when: no Critical/High findings remain and frontmatter has been validated against `agent-development` patterns.
+
+## Step 5 — MCP Configuration
+
+After QA is clean, invoke `find-mcp` to select and configure MCP servers for the agent:
+
+1. Extract the agent's domain and "External Systems" from the requirements brief.
+2. Pass domain + target harness to `find-mcp`.
+3. Present ranked MCP candidates to the user for confirmation.
+4. Generate the confirmed MCP configuration block for the target harness.
+5. Append the config block to the agent bundle's harness file(s) and note any global config paths.
+
+**Output:** A ready-to-paste MCP configuration snippet for the target harness, appended to the bundle.
+
+> If no MCPs are relevant to the agent's domain, skip this step and mark the agent Ready.
