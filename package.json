@@ -4,7 +4,7 @@
   "description": "Meta-agent for designing and building AI agents and skills.",
   "main": "index.js",
   "scripts": {
-    "init": "skills experimental_install",
+    "init": "node init.js",
     "postinstall": "npm run init"
   },
   "keywords": [

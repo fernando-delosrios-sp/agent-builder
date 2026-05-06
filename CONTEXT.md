@@ -63,7 +63,24 @@ Scoring factors: verification status, reputation, safety record, semantic match 
 |---|---|
 | **Standard** | 3–5 mandates, core workflow, one harness init file |
 | **Coding Agent** | Mandatory skills: `context7-cli`, `find-skills`, `find-docs`. Add "Coding Mandates" block. Set `coding_agent: true`. Knowledge hierarchy: Project Context → Live Docs → Specialized Skills → Trained Knowledge. |
-| **Multi-Agent** | Add `AGENTS.md` registry. Each sub-agent gets its own `AGENT.md`. Never exceed two levels. |
+| **Multi-Agent** | Add `AGENTS.md` (human) and `agents.json` (machine) registry. Each sub-agent gets its own `AGENT.md`. Never exceed two levels. |
+
+## Registry Format (Multi-Agent)
+
+To ensure sub-agents are discoverable by both humans and machines, every orchestrator must maintain:
+
+1. **`AGENTS.md`**: A markdown routing table describing each sub-agent's domain.
+2. **`agents.json`**: A machine-readable array of sub-agent metadata:
+   ```json
+   [
+     {
+       "name": "specialist-name",
+       "path": "agents/specialist-name",
+       "domain": ["list", "of", "capabilities"],
+       "trigger": "regex or description of when to delegate"
+     }
+   ]
+   ```
 
 ## State Machine
 
