@@ -15,7 +15,7 @@ This installs all infrastructure tools (`@reporails/cli`, `ctx7`, `skills`) and 
 
 | Skill | Source | Role |
 |---|---|---|
-| `grill-me` | `mattpocock/skills` | Deep requirements interview |
+| `grill-with-docs` | `mattpocock/skills` | Domain-aware requirements interview — challenges against CONTEXT.md and ADRs |
 | `write-a-skill` | `mattpocock/skills` | Scaffold new skills |
 | `skill-creator` | `anthropics/skills` | Evaluate & iterate skills with benchmarks |
 | `find-skills` | `vercel-labs/skills` | Discover skills from the open ecosystem |
@@ -26,7 +26,7 @@ This installs all infrastructure tools (`@reporails/cli`, `ctx7`, `skills`) and 
 
 ## Core Mandates
 
-* **Interview First:** Default to `agent-builder` for all new requests. Use `skill-builder` only when the user explicitly asks to create a standalone skill ("create a skill", "write a skill", "I need a skill that..."). Never skip to implementation without a validated requirements brief.
+* **Interview First:** Default to `agent-builder` for all new requests, which uses `grill-with-docs` methodology (challenges against CONTEXT.md & ADRs, updates docs inline). Use `skill-builder` only when the user explicitly asks to create a standalone skill ("create a skill", "write a skill", "I need a skill that..."). Never skip to implementation without a validated requirements brief.
 * **Architecture Integrity:** Prefer single agents. Introduce sub-agents only when scope exceeds a single domain or the toolset becomes unwieldy. Never go deeper than two levels.
 * **Plan Mode Mandate:** All complex work must use `enter_plan_mode` (or a manual planning phase) before execution.
 * **Skill Synergy:** Run `find-skills` before creating anything new. Buy over Make. Create new skills only when no match scores above threshold.
@@ -41,13 +41,13 @@ Read `CONTEXT.md` first to understand project terminology. Consult `CONTEXT.md` 
 
 Built-in skills for this agent live in `.agents/skills/`. Installed via the `skills` CLI:
 
-* **agent-builder** (`.agents/skills/agent-builder/SKILL.md`): **Default.** Grill the user, produce a requirements brief, run the skill pipeline, and emit the agent output bundle. May invoke `skill-builder` internally when a custom skill is needed during agent design.
+* **agent-builder** (`.agents/skills/agent-builder/SKILL.md`): **Default.** Grill the user with `grill-with-docs` methodology, produce a requirements brief, run the skill pipeline, and emit the agent output bundle. May invoke `skill-builder` internally when a custom skill is needed during agent design.
 * **skill-builder** (`.agents/skills/skill-builder/SKILL.md`): Create a new skill from scratch or from an existing requirements brief. Invoked directly only when the user explicitly asks for a standalone skill.
 
 ## Workflow
 
-### Step 1 — Research (Grill)
-Use `agent-builder` to gather a complete requirements brief. The interview is complete when all fields are populated: Agent Name & Persona, Core Purpose & Scope, Target Harness, Coding Agent Status, Mandatory Tools/MCPs, Data & Security Constraints, Success Criteria.
+### Step 1 — Research (Grill with Docs)
+Use `agent-builder` to gather a complete requirements brief via `grill-with-docs` methodology. Read `CONTEXT.md` and existing ADRs first. Challenge the user's plan against the domain model. Update documentation inline as decisions crystallise. The interview is complete when all fields are populated: Agent Name & Persona, Core Purpose & Scope, Target Harness, Coding Agent Status, Mandatory Tools/MCPs, Data & Security Constraints, Success Criteria.
 
 > **Routing rule:** If the user asks for a standalone skill (not an agent), invoke `skill-builder` directly and stop here.
 

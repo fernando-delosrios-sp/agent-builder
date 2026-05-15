@@ -1,8 +1,8 @@
 ---
 name: agent-builder
 description: |
-  Interview the user to gather and validate requirements for a new AI agent, then drive
-  architecture, skill selection, MCP configuration, and harness output.
+  Interview the user using `grill-with-docs` methodology to gather and validate requirements for a new AI agent,
+  then drive architecture, skill selection, MCP configuration, and harness output.
   Use when user asks to build, design, or spec an agent ("build me an agent", "I need an agent that...", "design an agent for...").
   For standalone skill creation without an agent, use skill-builder instead.
 ---
@@ -15,7 +15,20 @@ Transforms a vague user request into a fully specified agent: requirements brief
 
 Produce a validated requirements brief that drives architecture decisions, skill selection, MCP configuration, and harness-compatible output generation.
 
+The interview uses the `grill-with-docs` methodology: challenge the user's plan against the existing domain model, sharpen terminology, and update documentation (CONTEXT.md, ADRs) inline as decisions crystallise.
+
 ## Step 1 — Discover (Requirements)
+
+### Pre-flight: Domain Awareness
+
+Before starting the interview, load the project's domain model:
+
+1. Read `CONTEXT.md` from the project root. If a `CONTEXT-MAP.md` exists, consult it to find the correct context file.
+2. Read `docs/adr/` for any existing architectural decisions that constrain the agent design.
+
+This ensures every question is grounded in the project's existing language and decisions.
+
+### Interview Protocol
 
 **CRITICAL RULE — ONE QUESTION PER TURN:**
 Ask **exactly one question** per response. Wait for the user's answer before asking the next one. Never batch questions. If a topic has an obvious default, propose it as a recommendation and ask the user to confirm or override — that counts as your one question for the turn.
@@ -31,6 +44,26 @@ Work through the Design Tree in order, one item at a time:
 8. **Latency/Cost** — performance and budget constraints.
 
 Do not move to the next item until the current one is resolved or the user explicitly defers it. When in doubt, propose a sensible recommendation and ask for confirmation.
+
+### Domain Challenge Rules
+
+Throughout the interview, apply these `grill-with-docs` disciplines:
+
+- **Challenge against the glossary:** When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'X' as Y, but you seem to mean Z — which is it?"
+- **Sharpen fuzzy language:** When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account' — do you mean the Customer or the User? Those are different things."
+- **Discuss concrete scenarios:** Stress-test domain relationships with specific scenarios that probe edge cases and force precision about boundaries between concepts.
+- **Cross-reference with code:** When the user states how something works, check whether the code agrees. If there's a contradiction, surface it.
+
+### Documentation Updates
+
+Update documentation inline as decisions are made:
+
+- **Update CONTEXT.md** when a new term or domain concept is resolved. Do not batch — capture as they happen.
+- **Offer an ADR** only when all three are true:
+  1. Hard to reverse — the cost of changing your mind later is meaningful.
+  2. Surprising without context — a future reader will wonder "why did they do it this way?"
+  3. The result of a real trade-off with genuine alternatives.
+  If any is missing, skip the ADR.
 
 ### Completeness Threshold
 
@@ -59,18 +92,26 @@ After the brief is complete, run the skill pipeline:
 
 Design the agent architecture and emit the output bundle for the target harness.
 
-**Mandatory Bundle Contents:**
-1. **Target Harness File** (e.g., `GEMINI.md`, `CLAUDE.md`).
-2. **Core Instructions** (`AGENT.md`).
-3. **Google Jules Companion** (`.jules/<agent-name>.md`) — following the persona-driven pattern in `AGENT.md`.
-4. **README.md** with `degit` deployment command.
+**Template Foundation:**
+The output bundle starts from the template at `agents/agent-builder/`. Copy the template files into `agents/<agent-name>/` as the foundation, then populate from the brief:
+
+- `.agents/IDENTITY.md` — filled with agent identity details from the Requirements Brief.
+- `.agents/CONTEXT.md` — populated with domain terms resolved during the Grill (Step 1). The resulting agent MUST maintain this file via `grill-with-docs` (challenge against glossary, sharpen fuzzy language, update inline).
+- `AGENTS.md` — updated with agent-specific mandates, session protocol, and constraints. Must include a mandate that `.agents/CONTEXT.md` is maintained via `grill-with-docs`.
+
+The template's `.agents/JOURNAL.md`, `.agents/MINDSET.md`, `.agents/PROGRESS.md`, and `.agents/RULES.md` are carried through as-is into the output bundle.
+
+**Mandatory Bundle Contents (beyond the template):**
+1. **Target Harness File** (e.g., `GEMINI.md`, `CLAUDE.md`) — thin init referencing `AGENTS.md`.
+2. **Google Jules Companion** (`.jules/<agent-name>.md`) — following the persona-driven pattern in `AGENTS.md`.
+3. **README.md** with `degit` deployment command.
 
 **Path Rules:**
 - The agent bundle goes into `agents/<agent-name>/`.
-- Skills specifically created for this agent go into `agents/<agent-name>/skills/`.
+- Skills specifically created for this agent go into `agents/<agent-name>/.agents/skills/`.
 - Reused/Standalone skills go into `skills/`.
 
-See `AGENT.md` Step 3 for the full architecture rules and file layout.
+See `AGENTS.md` Step 3 for the full architecture rules and file layout.
 
 ## Step 4 — QA
 

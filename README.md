@@ -17,8 +17,8 @@ The CLI will detect your installed AI agents (Cursor, Claude Code, Gemini CLI, C
 Run once to install the third-party skills the builder depends on:
 
 ```bash
-# Grill & skill authoring (mattpocock)
-npx skills add mattpocock/skills --skill grill-me write-a-skill --all -y
+# Domain-aware interview & skill authoring (mattpocock)
+npx skills add mattpocock/skills --skill grill-with-docs write-a-skill --all -y
 
 # Skill discovery (Vercel)
 npx skills add vercel-labs/skills --skill find-skills --all -y

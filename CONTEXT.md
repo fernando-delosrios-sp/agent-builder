@@ -23,9 +23,8 @@ Read this file before making any architectural decision.
 | File | Role |
 |---|---|
 | `GEMINI.md` / `CLAUDE.md` / … | Per-harness **thin init** — identity header + references to `AGENT.md` |
-| `AGENT.md` | **Harness-agnostic core** — all mandates, workflow, skill pipeline, QA |
+| `AGENTS.md` | **Harness-agnostic core** — all mandates, workflow, skill pipeline, QA |
 | `CONTEXT.md` | **Domain model** — this file; glossary, structure, scoring rules |
-| `AGENTS.md` | Registry of sub-agents (only present in multi-agent setups) |
 | `SKILL.md` | Procedural skill with YAML frontmatter (`name`, `description`) |
 
 Rule: root files reference sub-files; never duplicate content across levels.
