@@ -22,8 +22,7 @@ Read this file before making any architectural decision.
 
 | File | Role |
 |---|---|
-| `GEMINI.md` / `CLAUDE.md` / … | Per-harness **thin init** — identity header + references to `AGENTS.md` |
-| `AGENTS.md` | **Harness-agnostic core** — all mandates, workflow, skill pipeline, QA |
+| `AGENTS.md` | **Generic core** — user renames to harness file (CLAUDE.md, GEMINI.md, etc.) at deployment |
 | `CONTEXT.md` | **Domain model** — this file; glossary, structure, scoring rules |
 | `SKILL.md` | Procedural skill with YAML frontmatter (`name`, `description`) |
 
@@ -33,17 +32,15 @@ Rule: root files reference sub-files; never duplicate content across levels.
 
 ```
 <root>/
-├── agents/                   # Isolated agents directory
+├── templates/                 # Template source for building agents
+│   └── AGENTS.md              # Generic core — builder copies and populates
+├── agents/                    # Built agent output only — not part of building process
 │   └── <agent-name>/
-│       ├── SKILL.md          # Entry point for npx skills
-│       ├── AGENTS.md         # Agent mandates (Source of Truth)
-│       └── ...
-├── skills/                   # Discoverable skills (npx skills add)
-│   ├── <standalone-skill>/   # Standard standalone skill
-│   ├── <agent-name>/         # Symlink to ../agents/<agent-name>/
-│   └── <agent--skill>/       # Symlink to ../agents/<name>/skills/<skill>
-├── .agents/skills/           # Builder runtime skills (internal)
-└── init.js                   # Bootstrap script
+│       ├── SKILL.md           # Entry point for npx skills
+│       ├── AGENTS.md          # Generic — user renames to harness file at deploy
+│       └── .agents/skills/    # Agent-dedicated skills
+├── .agents/skills/            # Builder runtime skills (internal)
+└── init.js                    # Bootstrap script
 ```
 
 ## Skill Pipeline Scoring
@@ -60,7 +57,7 @@ Scoring factors: verification status, reputation, safety record, semantic match 
 
 | Archetype | Key additions |
 |---|---|
-| **Standard** | 3–5 mandates, core workflow, one harness init file |
+| **Standard** | 3–5 mandates, core workflow, one `AGENTS.md` (rename to harness file) |
 | **Coding Agent** | Mandatory skills: `context7-cli`, `find-skills`, `find-docs`. Add "Coding Mandates" block. Set `coding_agent: true`. Knowledge hierarchy: Project Context → Live Docs → Specialized Skills → Trained Knowledge. |
 | **Multi-Agent** | Add `AGENTS.md` (human + sub-agent registry) and `agents.json` (machine) registry. Each sub-agent gets its own `AGENTS.md`. Never exceed two levels. |
 

@@ -108,4 +108,4 @@ Before finalizing:
 
 ## Step 5 — QA (if publishing)
 
-For skills destined for `skills/` (publishable), run description optimization via `skill-creator`'s description optimization loop to maximize triggering accuracy before publishing.
+For skills destined for `.agents/skills/` (publishable), run description optimization via `skill-creator`'s description optimization loop to maximize triggering accuracy before publishing.

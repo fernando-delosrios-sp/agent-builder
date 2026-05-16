@@ -1,7 +1,7 @@
 # Agent Builder — Core Instructions
 
-> This file is harness-agnostic. It is referenced by all per-harness init files
-> (`GEMINI.md`, `CLAUDE.md`, etc.). Do not duplicate content from here into those files.
+> This file is the generic core. Rename it to your harness file (e.g., `CLAUDE.md`,
+> `GEMINI.md`, `CURSOR.md`) at deployment time. Do not duplicate.
 
 ## Initialization (Pre-flight Check)
 
@@ -30,7 +30,6 @@ This installs all infrastructure tools (`@reporails/cli`, `ctx7`, `skills`) and 
 * **Architecture Integrity:** Prefer single agents. Introduce sub-agents only when scope exceeds a single domain or the toolset becomes unwieldy. Never go deeper than two levels.
 * **Plan Mode Mandate:** All complex work must use `enter_plan_mode` (or a manual planning phase) before execution.
 * **Skill Synergy:** Run `find-skills` before creating anything new. Buy over Make. Create new skills only when no match scores above threshold.
-* **Harness Compatibility:** Emit specialized instruction files for the user's chosen harness (Cursor, Claude Code, Gemini CLI, Codex, etc.).
 * **Quality Gate:** No agent or skill is "Ready" until it passes `npx @reporails/cli check` with no Critical/High findings.
 
 ## Domain Language
@@ -71,13 +70,14 @@ Design the agent architecture. Decide: single agent vs. sub-agents, required ski
 6. Consult `Agent Development` (anthropics/claude-code) when designing agent frontmatter or triggering conditions.
 
 ### Step 3 — Build
-Generate the output bundle for the chosen harness. Agents and their specific skills are isolated in the `agents/` directory, while standalone skills live in `skills/`.
+Generate the output bundle for the chosen harness. **`agents/` is for built agent output only — not involved in the building process.**
+
+**Template Foundation:**
+The output bundle starts from `templates/`. Copy the template files into `agents/<agent-name>/` as the foundation, then populate from the brief:
 
 **Mandatory Outputs:**
-1. **Primary Harness File:** (e.g., `GEMINI.md`, `CLAUDE.md`) — The entry point.
-2. **Core Instructions:** (`AGENTS.md`) — The source of truth for mandates and workflow.
-3. **Google Jules Version:** (`.jules/<agent-name>.md`) — A persona-driven companion for the Jules harness.
-4. **README.md:** With `degit` installation instructions.
+1. **Core Instructions:** (`AGENTS.md`) — The source of truth for mandates and workflow.
+2. **Google Jules Companion** (`.jules/<agent-name>.md`) — Optional persona-driven companion for Jules harness.
 
 **Deployment primitive — `degit`:**
 Each agent in `agents/` is deployable as a self-contained unit. The canonical install command is:
@@ -99,20 +99,18 @@ Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
 
 ```
 <project-root>/
-├── GEMINI.md        # Orchestrator harness file
 ├── AGENTS.md        # Orchestrator core instructions + sub-agent registry
 └── agents/
     └── <specialist>/   # degit-deployed sub-agent
-        ├── GEMINI.md
         ├── AGENTS.md
-        └── skills/
+        └── .agents/skills/
 ```
 
 Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
 
 **Architecture rules:**
 - Max two levels: orchestrator → sub-agent. Never deeper.
-- Each sub-agent is self-contained: its own `AGENTS.md`, harness file, and `skills/`.
+- Each sub-agent is self-contained: its own `AGENTS.md` and `.agents/skills/`.
 - The orchestrator delegates; it never duplicates sub-agent logic.
 - Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
 
@@ -131,33 +129,28 @@ For every agent built, you MUST generate a companion Google Jules version.
 
 ```
 <root>/
-├── agents/                   # Isolated agents
+├── templates/                 # Template source for building agents
+│   └── AGENTS.md              # Generic core — builder copies and populates
+├── agents/                    # Built agent output only — not part of building process
 │   └── <agent-name>/
-│       ├── SKILL.md          # Propagation Entry Point (optional — for npx skills)
-│       ├── AGENTS.md         # Harness-agnostic core (Source of Truth)
-│       ├── .gitignore        # Negates root .agents/ exclusion so skills are tracked
-│       ├── README.md         # degit deploy command + usage
-│       ├── <HARNESS>.md      # Thin identity files (GEMINI.md, CLAUDE.md, CURSOR.md)
-│       └── .agents/skills/   # Agent-dedicated skills — auto-discovered after degit
+│       ├── SKILL.md           # Propagation Entry Point (optional — for npx skills)
+│       ├── AGENTS.md          # Generic core — rename to CLAUDE.md, GEMINI.md, etc.
+│       ├── README.md          # degit deploy command + usage + harness renaming guide
+│       └── .agents/skills/    # Agent-dedicated skills — auto-discovered after degit
 │           └── <skill-name>/
 │               └── SKILL.md
-├── skills/                   # Discoverable skills (npx skills add targets this)
-│   ├── <standalone-skill>/   # Standard standalone skill
-│   └── <agent-name>/         # Symlink to ../agents/<agent-name>/ (Propagates the agent)
-├── .agents/skills/           # Builder runtime skills (symlinked from skills/)
+├── .agents/skills/            # Builder runtime skills
 └── [project files]
 ```
 
 **Propagation Rules:**
-- **Standard Discovery:** `npx skills` scans the root `skills/` directory and identifies skills via `SKILL.md` files.
-- **Agent Propagation:** To make an entire agent propagatable via `npx skills`, include a `SKILL.md` at the root of the agent's folder and symlink the folder into the root `skills/` directory.
-- **Dedicated Skills:** Store agent-dedicated skills under `.agents/skills/` inside the agent folder (not `skills/`). This ensures they land in the correct auto-discovery path after `degit` deployment. Include a `.gitignore` in the agent folder to negate the root `.agents/` exclusion.
+- **All skills live in `.agents/skills/`.** No separate `skills/` directory.
+- **Agent Propagation:** To make an entire agent propagatable via `npx skills`, include a `SKILL.md` at the root of the agent's folder.
+- **Dedicated Skills:** Store agent-dedicated skills under `.agents/skills/` inside the agent folder. This ensures they land in the correct auto-discovery path after `degit` deployment. Include a `.gitignore` in the agent folder to negate the root `.agents/` exclusion.
 - **Source of Truth:** Agent folder is self-contained — harness files reference `.agents/skills/<skill-name>/SKILL.md` for all dedicated skills.
 
 **Instruction hierarchy:**
-- Per-harness init file: identity header + references to `AGENTS.md` and `CONTEXT.md` only.
-- `AGENTS.md`: all mandates, workflow, and archetypes (this file).
-- `AGENTS.md` (sub-agent): role, mandates, and toolset for a specific sub-agent.
+- `AGENTS.md`: all mandates, workflow, and archetypes. User renames to their harness file (e.g., `CLAUDE.md`, `GEMINI.md`) at deployment time.
 - `SKILL.md`: procedural guidance with YAML frontmatter (`name`, `description`).
 - Root files reference sub-files; never duplicate content.
 

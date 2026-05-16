@@ -86,14 +86,14 @@ After the brief is complete, run the skill pipeline:
 1. Generate search queries from "Allowed Actions" and "Mandatory Tools/MCPs" in the brief.
 2. Run `find-skills` for each query. Score candidates: verification status, reputation, safety, match quality.
 3. **If match > 0.8** → Buy (reference the existing skill in the output bundle).
-4. **If no match** → Make: invoke `skill-builder`, passing the Requirements Brief as context. Explicitly instruct `skill-builder` to target the `agents/<agent-name>/skills/` directory for the new skill.
+4. **If no match** → Make: invoke `skill-builder`, passing the Requirements Brief as context. Explicitly instruct `skill-builder` to target the `agents/<agent-name>/.agents/skills/` directory for the new skill.
 
 ## Step 3 — Architecture & Build
 
 Design the agent architecture and emit the output bundle for the target harness.
 
 **Template Foundation:**
-The output bundle starts from the template at `agents/agent-builder/`. Copy the template files into `agents/<agent-name>/` as the foundation, then populate from the brief:
+The output bundle starts from `templates/`. Copy the template files into `agents/<agent-name>/` as the foundation, then populate from the brief:
 
 - `.agents/IDENTITY.md` — filled with agent identity details from the Requirements Brief.
 - `.agents/CONTEXT.md` — populated with domain terms resolved during the Grill (Step 1). The resulting agent MUST maintain this file via `grill-with-docs` (challenge against glossary, sharpen fuzzy language, update inline).
@@ -102,14 +102,13 @@ The output bundle starts from the template at `agents/agent-builder/`. Copy the 
 The template's `.agents/JOURNAL.md`, `.agents/MINDSET.md`, `.agents/PROGRESS.md`, and `.agents/RULES.md` are carried through as-is into the output bundle.
 
 **Mandatory Bundle Contents (beyond the template):**
-1. **Target Harness File** (e.g., `GEMINI.md`, `CLAUDE.md`) — thin init referencing `AGENTS.md`.
-2. **Google Jules Companion** (`.jules/<agent-name>.md`) — following the persona-driven pattern in `AGENTS.md`.
-3. **README.md** with `degit` deployment command.
+1. **README.md** with `degit` deployment command and harness renaming guide.
+2. **Google Jules Companion** (`.jules/<agent-name>.md`) — Optional persona-driven companion for Jules harness.
 
 **Path Rules:**
 - The agent bundle goes into `agents/<agent-name>/`.
 - Skills specifically created for this agent go into `agents/<agent-name>/.agents/skills/`.
-- Reused/Standalone skills go into `skills/`.
+- Reused/Standalone skills go into `.agents/skills/`.
 
 See `AGENTS.md` Step 3 for the full architecture rules and file layout.
 

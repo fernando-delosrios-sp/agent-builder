@@ -85,15 +85,12 @@ When a project needs more than one specialist, use an **orchestrator + sub-agent
 
 ```
 <project-root>/
-├── GEMINI.md        # Orchestrator — routes tasks to sub-agents
 ├── AGENTS.md        # Orchestrator core instructions + sub-agent registry
 └── agents/
     ├── perf/        # npx degit .../sailpoint-connector-perf agents/perf
-    │   ├── GEMINI.md
     │   ├── AGENTS.md
-    │   └── skills/
+    │   └── .agents/skills/
     └── security/    # npx degit .../another-agent agents/security
-        ├── GEMINI.md
         └── AGENTS.md
 ```
 
@@ -115,7 +112,7 @@ Reviews connector code for credential handling and data exposure issues.
 
 **Rules:**
 - Max two levels deep: orchestrator → sub-agent. Never orchestrator → sub-agent → sub-agent.
-- Each sub-agent is self-contained: its own `AGENTS.md`, harness file, and `skills/`.
+- Each sub-agent is self-contained: its own `AGENTS.md` and `.agents/skills/`.
 - The orchestrator delegates; it does not duplicate sub-agent logic.
 - Sub-agents can be activated directly (by `cd agents/perf` in some harnesses) or invoked by the orchestrator when the user's request matches their domain.
 
@@ -125,22 +122,22 @@ Reviews connector code for credential handling and data exposure issues.
 
 ```
 agent-builder/
-├── GEMINI.md              # Gemini CLI thin init — references AGENTS.md
-├── CLAUDE.md              # Claude Code thin init — references AGENTS.md
-├── AGENTS.md              # Harness-agnostic core: mandates, workflow, QA
+├── AGENTS.md              # Generic core — rename to CLAUDE.md, GEMINI.md, etc.
 ├── CONTEXT.md             # Domain model: glossary, scoring rules, archetypes
 ├── README.md              # This file
 │
-├── skills/                # Publishable skills — deployed via npx skills add
-│   └── agent-builder/
-│       └── SKILL.md
+├── templates/             # Template source for building agents
+│   └── AGENTS.md          # Generic core — builder copies and populates
 │
-└── .agents/               # Builder runtime skills (auto-loaded by skills CLI)
-    └── skills/
-        └── agent-builder -> ../../skills/agent-builder
+├── .agents/               # Builder runtime skills (auto-loaded by skills CLI)
+│   └── skills/
+│       ├── agent-builder/
+│       └── skill-builder/
+│
+└── agents/                # Built agent output only — not part of building process
 ```
 
-Adding a new harness is a one-file operation: create a thin init (e.g., `CURSOR.md`) that sets the identity header and references `AGENTS.md` and `CONTEXT.md`. No logic duplication required.
+To deploy an agent, take `AGENTS.md` and rename it to your harness file (e.g., `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`).
 
 ## Supported agents
 
