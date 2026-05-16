@@ -1,0 +1,26 @@
+[
+  {
+    "name": "dns-manager",
+    "path": "agents/dns-manager",
+    "domain": ["dns", "cname", "ovh", "domain", "record", "zone"],
+    "trigger": "User needs DNS record creation, CNAME setup, OVH API management, or domain name resolution."
+  },
+  {
+    "name": "docker-manager",
+    "path": "agents/docker-manager",
+    "domain": ["docker", "portainer", "stack", "container", "deploy", "compose", "restart", "stop", "start"],
+    "trigger": "User needs to deploy, start, stop, restart, or manage Docker stacks via Portainer."
+  },
+  {
+    "name": "proxy-configurator",
+    "path": "agents/proxy-configurator",
+    "domain": ["caddy", "proxy", "reverse-proxy", "https", "tls", "caddyfile"],
+    "trigger": "User needs Caddy reverse proxy configuration, TLS setup, or Caddy reload."
+  },
+  {
+    "name": "homepage-publisher",
+    "path": "agents/homepage-publisher",
+    "domain": ["homepage", "dashboard", "widget", "portal", "gethomepage"],
+    "trigger": "User needs to publish a service to the homepage dashboard or update service widgets."
+  }
+]
