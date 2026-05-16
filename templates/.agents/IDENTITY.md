@@ -77,6 +77,7 @@ The agent is **Ready** when:
 - [ ] {{ criterion_3 }}
 - [ ] `npx @reporails/cli check` reports no Critical/High findings
 - [ ] All mandatory outputs generated (AGENTS.md, README.md)
+- [ ] Optional: Google Jules companion (`.jules/<agent-name>.md`)
 
 ## Architecture Decisions
 

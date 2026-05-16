@@ -115,7 +115,7 @@ Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describi
 - Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
 
 **Google Jules Output:**
-For every agent built, you MUST generate a companion Google Jules version.
+For every agent built, you MAY generate an optional companion Google Jules version.
 - **Path:** `agents/<agent-name>/.jules/<agent-name>.md`
 - **Format:** Persona-driven, domain-obsessed, and designed for self-iteration:
   - **Persona & Emoji:** A catchy name and emoji (e.g., "Bolt" ⚡).
@@ -147,7 +147,7 @@ For every agent built, you MUST generate a companion Google Jules version.
 - **All skills live in `.agents/skills/`.** No separate `skills/` directory.
 - **Agent Propagation:** To make an entire agent propagatable via `npx skills`, include a `SKILL.md` at the root of the agent's folder.
 - **Dedicated Skills:** Store agent-dedicated skills under `.agents/skills/` inside the agent folder. This ensures they land in the correct auto-discovery path after `degit` deployment. Include a `.gitignore` in the agent folder to negate the root `.agents/` exclusion.
-- **Source of Truth:** Agent folder is self-contained — harness files reference `.agents/skills/<skill-name>/SKILL.md` for all dedicated skills.
+- **Source of Truth:** Agent folder is self-contained — the renamed `AGENTS.md` references `.agents/skills/<skill-name>/SKILL.md` for all dedicated skills.
 
 **Instruction hierarchy:**
 - `AGENTS.md`: all mandates, workflow, and archetypes. User renames to their harness file (e.g., `CLAUDE.md`, `GEMINI.md`) at deployment time.

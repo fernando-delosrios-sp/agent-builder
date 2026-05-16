@@ -41,7 +41,7 @@ After any agent or skill is built, run:
 npx @reporails/cli check
 ```
 
-Reporails validates your instruction files (GEMINI.md, CLAUDE.md, AGENTS.md, SKILL.md) against 92+ deterministic rules and gives you an actionable score. For full cross-file diagnostics:
+Reporails validates your instruction files (`AGENTS.md`, `SKILL.md`) against 92+ deterministic rules and gives you an actionable score. For full cross-file diagnostics:
 
 ```bash
 npx @reporails/cli auth login
@@ -96,7 +96,7 @@ When a project needs more than one specialist, use an **orchestrator + sub-agent
 
 **Deploy the orchestrator:**
 ```bash
-# Pull just the harness file you need from this repo (or write your own)
+# Deploy the agent's AGENTS.md (rename to your harness file after deploy)
 npx degit fernando-delosrios-sp/agent-builder/agents/<orchestrator> . --force
 ```
 
