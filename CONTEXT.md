@@ -11,7 +11,7 @@ Read this file before making any architectural decision.
 | **Grill** | A deep, recursive interview that surfaces and validates requirements until the brief is complete. |
 | **Requirements Brief** | A normalized artifact capturing: Agent Name & Persona, Core Purpose & Scope, Target Harness, Coding Agent Status, Mandatory Tools/MCPs, Data & Security Constraints, Success Criteria. |
 | **Skill** | A self-contained `SKILL.md` (+ optional resources) that extends an agent's capabilities. Loaded via the `skills` CLI. |
-| **Harness** | The runtime environment an agent runs inside (e.g., Gemini CLI, Claude Code, Cursor, Codex, Antigravity). |
+| **Harness** | The runtime environment an agent runs inside (e.g., OpenCode, Gemini CLI, Claude Code, Cursor, Codex, Antigravity). |
 | **Buy before Make** | Discover and reuse existing skills (score > 0.8) before creating new ones. |
 | **Quality Gate** | A build is "Ready" only when `npx @reporails/cli check` reports no Critical/High findings. |
 | **Two-Level Architecture** | A primary agent orchestrating specialized sub-agents. Never exceed two levels. |

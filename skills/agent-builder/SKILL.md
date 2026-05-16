@@ -16,7 +16,7 @@ Transforms a vague user request into a fully specified agent: requirements brief
 **FORBIDDEN FILE NAMES (creating any of these means immediate failure):**
 - `AGENT.md` — FORBIDDEN. Use `AGENTS.md` (plural) only.
 - `CLAUDE.md` — FORBIDDEN. The user renames `AGENTS.md` at deploy.
-- `GEMINI.md`, `CURSOR.md`, `CODE.md` — FORBIDDEN. No harness-specific files.
+- `GEMINI.md`, `CURSOR.md`, `CODE.md`, `OPECODE.md` — FORBIDDEN. No harness-specific files.
 
 **BEFORE generating any plan, output file list, or architecture diagram, VALIDATE:**
 1. Does every agent file end with `AGENTS.md` (plural, not `AGENT.md`)?
@@ -84,7 +84,7 @@ Interview is complete when all fields are populated:
 
 - [ ] Agent Name & Persona
 - [ ] Core Purpose & Scope
-- [ ] Target Harness (e.g., Cursor, Claude Code, Gemini CLI)
+- [ ] Target Harness (e.g., OpenCode, Cursor, Claude Code, Gemini CLI)
 - [ ] Explicit Coding Agent Status (Yes/No)
 - [ ] Mandatory Tools/MCPs (if known)
 - [ ] Data & Security Constraints

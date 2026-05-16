@@ -3,7 +3,7 @@
 **FORBIDDEN FILE NAMES (creating any of these means immediate failure):**
 - `AGENT.md` — FORBIDDEN. Use `AGENTS.md` (plural) only.
 - `CLAUDE.md` — FORBIDDEN. The user renames `AGENTS.md` at deploy.
-- `GEMINI.md`, `CURSOR.md`, `CODE.md` — FORBIDDEN. No harness-specific files.
+- `GEMINI.md`, `CURSOR.md`, `CODE.md`, `OPECODE.md` — FORBIDDEN. No harness-specific files.
 
 **BEFORE generating any plan, output file list, or architecture diagram, VALIDATE:**
 1. Does every agent file end with `AGENTS.md` (plural, not `AGENT.md`)?
@@ -14,7 +14,7 @@ If any answer is NO, DO NOT PRODUCE THE PLAN. Fix the violations in your thinkin
 # Agent Builder — Core Instructions
 
 > This file is the generic core for all built agents. Rename it to your harness
-> file (e.g., `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`) at deployment time.
+> file (e.g., `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`, `OPECODE.md`) at deployment time.
 
 ## Initialization (Pre-flight Check)
 
@@ -135,7 +135,7 @@ Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
         └── .agents/skills/
 ```
 
-Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
+Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI, OpenCode) read this automatically.
 
 **Architecture rules:**
 - Max two levels: orchestrator › sub-agent. Never deeper.
