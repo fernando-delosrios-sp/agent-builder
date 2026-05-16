@@ -16,7 +16,7 @@ Read this file before making any architectural decision.
 | **Quality Gate** | A build is "Ready" only when `npx @reporails/cli check` reports no Critical/High findings. |
 | **Two-Level Architecture** | A primary agent orchestrating specialized sub-agents. Never exceed two levels. |
 | **Output Bundle** | The complete set of files emitted into `agents/<agent-name>/`, built from `templates/`. |
-| **AGENTS.md** | The generic core file (always plural). User renames to their harness file at deployment. NEVER create `AGENT.md` (singular). |
+| **AGENTS.md** | **Generic core** — the ONLY instruction file. ALWAYS plural. NEVER `AGENT.md` (singular). User renames to harness at deploy. |
 | **init.js** | The canonical multi-platform bootstrap script. Installs/updates the six upstream skills required before using agent-builder or skill-builder. Run via `node init.js`. |
 
 ## Instruction File Hierarchy

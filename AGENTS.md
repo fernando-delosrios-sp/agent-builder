@@ -1,11 +1,22 @@
+## STOP — READ THIS FIRST — DO NOT GENERATE ANY PLAN UNTIL YOU HAVE CHECKED
+
+**FORBIDDEN FILE NAMES (creating any of these means immediate failure):**
+- `AGENT.md` — FORBIDDEN. Use `AGENTS.md` (plural) only.
+- `CLAUDE.md` — FORBIDDEN. The user renames `AGENTS.md` at deploy.
+- `GEMINI.md`, `CURSOR.md`, `CODE.md` — FORBIDDEN. No harness-specific files.
+
+**BEFORE generating any plan, output file list, or architecture diagram, VALIDATE:**
+1. Does every agent file end with `AGENTS.md` (plural, not `AGENT.md`)?
+2. Are there ZERO harness-specific files (`CLAUDE.md`, etc.)?
+
+If any answer is NO, DO NOT PRODUCE THE PLAN. Fix the violations in your thinking first, then produce only the corrected version.
+
 # Agent Builder — Core Instructions
 
-> This file is the generic core. Rename it to your harness file (e.g., `CLAUDE.md`,
-> `GEMINI.md`, `CURSOR.md`) at deployment time. Do not duplicate.
+> This file is the generic core for all built agents. Rename it to your harness
+> file (e.g., `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`) at deployment time.
 
 ## Initialization (Pre-flight Check)
-
-**Mandate:** If you are running in a fresh environment, you **MUST** run the standard installation command:
 
 ```bash
 npm install
@@ -40,7 +51,7 @@ The upstream skills (`agent-development`, `skill-creator`) from Anthropic use ec
 |---|---|
 | `CLAUDE.md` as instruction file | `AGENTS.md` (plural) — user renames to harness at deploy |
 | `AGENT.md` (singular filename) | `AGENTS.md` (always plural) |
-| Nested sub-agents under parent | Top-level `agents/<sub>/` entries |
+| Nested sub-agents under parent | `agents/<parent>/agents/<sub>/` — one degit deploys all |
 | Separate harness files per agent | Single `AGENTS.md` — rename only |
 
 ## Domain Language

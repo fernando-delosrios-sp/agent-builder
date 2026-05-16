@@ -1,5 +1,5 @@
 # AGENTS.md
-> This is the template source. The output file MUST be named `AGENTS.md` (plural, never `AGENT.md`).
+> OUTPUT FILE NAME: MUST be `AGENTS.md` (plural). NEVER `AGENT.md` (singular).
 > The user renames it to their harness file (CLAUDE.md, GEMINI.md, etc.) at deployment.
 
 ```markdown
