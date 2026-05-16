@@ -15,18 +15,20 @@ Read this file before making any architectural decision.
 | **Buy before Make** | Discover and reuse existing skills (score > 0.8) before creating new ones. |
 | **Quality Gate** | A build is "Ready" only when `npx @reporails/cli check` reports no Critical/High findings. |
 | **Two-Level Architecture** | A primary agent orchestrating specialized sub-agents. Never exceed two levels. |
-| **Output Bundle** | The complete set of instruction files and skills emitted for a target harness. |
+| **Output Bundle** | The complete set of files emitted into `agents/<agent-name>/`, built from `templates/`. |
+| **AGENTS.md** | The generic core file (always plural). User renames to their harness file at deployment. NEVER create `AGENT.md` (singular). |
 | **init.js** | The canonical multi-platform bootstrap script. Installs/updates the six upstream skills required before using agent-builder or skill-builder. Run via `node init.js`. |
 
 ## Instruction File Hierarchy
 
 | File | Role |
 |---|---|
-| `AGENTS.md` | **Generic core** — user renames to harness file (CLAUDE.md, GEMINI.md, etc.) at deployment |
+| `AGENTS.md` | **Generic core** — user renames to harness file (e.g., `CLAUDE.md`, `GEMINI.md`) at deployment. NEVER create `AGENT.md` (singular). |
 | `CONTEXT.md` | **Domain model** — this file; glossary, structure, scoring rules |
 | `SKILL.md` | Procedural skill with YAML frontmatter (`name`, `description`) |
+| `templates/` | Source templates the builder copies and populates for every agent |
 
-Rule: root files reference sub-files; never duplicate content across levels.
+Rule: root files reference sub-files; never duplicate content across levels. Never create separate harness files — `AGENTS.md` is the only output that gets renamed.
 
 ## Output Bundle Structure
 

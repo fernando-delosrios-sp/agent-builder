@@ -32,6 +32,17 @@ This installs all infrastructure tools (`@reporails/cli`, `ctx7`, `skills`) and 
 * **Skill Synergy:** Run `find-skills` before creating anything new. Buy over Make. Create new skills only when no match scores above threshold.
 * **Quality Gate:** No agent or skill is "Ready" until it passes `npx @reporails/cli check` with no Critical/High findings.
 
+## Upstream Skill Overrides
+
+The upstream skills (`agent-development`, `skill-creator`) from Anthropic use ecosystem conventions that conflict with this project. When reading ANY upstream skill, apply these overrides — our conventions take precedence:
+
+| Upstream convention | Our convention |
+|---|---|
+| `CLAUDE.md` as instruction file | `AGENTS.md` (plural) — user renames to harness at deploy |
+| `AGENT.md` (singular filename) | `AGENTS.md` (always plural) |
+| Nested sub-agents under parent | Top-level `agents/<sub>/` entries |
+| Separate harness files per agent | Single `AGENTS.md` — rename only |
+
 ## Domain Language
 
 Read `CONTEXT.md` first to understand project terminology. Consult `CONTEXT.md` before any architectural decision.
@@ -72,6 +83,13 @@ Design the agent architecture. Decide: single agent vs. sub-agents, required ski
 ### Step 3 — Build
 Generate the output bundle for the chosen harness. **`agents/` is for built agent output only — not involved in the building process.**
 
+**CRITICAL FILE NAMING RULES:**
+- The main file is ALWAYS `AGENTS.md` (plural). NEVER create a file named `AGENT.md` (singular).
+- NEVER create separate harness-specific files (`CLAUDE.md`, `GEMINI.md`, `CURSOR.md`, `ANTIGRAVITY.md`, etc.). The user renames `AGENTS.md` to their harness file at deployment time. Only the generic `AGENTS.md` is emitted.
+
+**CRITICAL TEMPLATE RULE:**
+- ALWAYS start from `templates/`. Copy ALL template files into `agents/<agent-name>/` first, then populate. Never write agent files from scratch or invent new file structures. The template files are tracked in `templates/` — use them as the foundation for every agent.
+
 **Template Foundation:**
 The output bundle starts from `templates/`. Copy the template files into `agents/<agent-name>/` as the foundation, then populate from the brief:
 
@@ -109,10 +127,11 @@ Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
 Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
 
 **Architecture rules:**
-- Max two levels: orchestrator → sub-agent. Never deeper.
-- Each sub-agent is self-contained: its own `AGENTS.md` and `.agents/skills/`.
+- Max two levels: orchestrator › sub-agent. Never deeper.
+- Each sub-agent is self-contained: its own AGENTS.md and .agents/skills/.
 - The orchestrator delegates; it never duplicates sub-agent logic.
-- Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
+- Every agent (including sub-agents) must have a root-level README.md with a degit deploy command.
+- NEVER create separate harness files (CLAUDE.md, GEMINI.md, CURSOR.md) in any agent. The user renames AGENTS.md.
 
 **Google Jules Output:**
 For every agent built, you MAY generate an optional companion Google Jules version.
@@ -153,6 +172,14 @@ For every agent built, you MAY generate an optional companion Google Jules versi
 - `AGENTS.md`: all mandates, workflow, and archetypes. User renames to their harness file (e.g., `CLAUDE.md`, `GEMINI.md`) at deployment time.
 - `SKILL.md`: procedural guidance with YAML frontmatter (`name`, `description`).
 - Root files reference sub-files; never duplicate content.
+
+**Post-Build Verification:**
+Before proceeding to QA, verify the output bundle against these checks:
+- [ ] No file named `AGENT.md` (singular) exists — every agent uses `AGENTS.md`
+- [ ] No harness-specific file exists (`CLAUDE.md`, `GEMINI.md`, `CURSOR.md`, etc.)
+- [ ] Sub-agents are at `agents/<sub-agent>/`, not nested under `agents/<parent>/agents/`
+- [ ] All files started from `templates/` as the foundation
+- [ ] README.md includes degit deploy command and harness renaming guide
 
 **Coding Agent extras** (when `coding_agent: true`):
 - Mandatory skills: `context7-cli`, `find-skills`, `find-docs`.
