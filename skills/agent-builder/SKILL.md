@@ -115,6 +115,8 @@ See `AGENTS.md` Step 3 for the full architecture rules and file layout.
 
 ## Step 4 — QA
 
+**This is an iterative feedback loop, not a one-pass gate.** QA findings are symptoms of root-cause gaps in the requirements brief or architecture. Do not simply "auto-fix" — trace each finding back to its source.
+
 **Before running QA**, read `.agents/skills/agent-development/SKILL.md` to verify that all agent frontmatter and triggering conditions in the generated bundle conform to the canonical patterns documented there.
 
 Then run the diagnostics tool on all generated instruction files:
@@ -124,7 +126,7 @@ npx @reporails/cli check
 ```
 
 Parse the output:
-- **Critical/High findings** → auto-fix or present a numbered remediation checklist to the user.
-- **Medium/Low findings** → surface them but do not block.
+- **Critical/High findings** → diagnose the root cause in the requirements brief or design. Loop back to Step 1 (Grill): challenge the assumptions that produced the gaps, sharpen the brief, update CONTEXT.md/ADRs inline, then re-Design and re-Build. Repeat QA until zero Critical/High findings remain.
+- **Medium/Low findings** → surface them for awareness but they do not block the loop.
 
 An agent is **Ready** only when: no Critical/High findings remain and frontmatter has been validated against `agent-development` patterns.

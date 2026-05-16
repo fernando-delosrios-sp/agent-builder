@@ -86,16 +86,15 @@ When a project needs more than one specialist, use an **orchestrator + sub-agent
 ```
 <project-root>/
 ├── GEMINI.md        # Orchestrator — routes tasks to sub-agents
-├── AGENT.md         # Orchestrator core instructions
-├── AGENTS.md        # Sub-agent registry (read by all harnesses)
+├── AGENTS.md        # Orchestrator core instructions + sub-agent registry
 └── agents/
     ├── perf/        # npx degit .../sailpoint-connector-perf agents/perf
     │   ├── GEMINI.md
-    │   ├── AGENT.md
+    │   ├── AGENTS.md
     │   └── skills/
     └── security/    # npx degit .../another-agent agents/security
         ├── GEMINI.md
-        └── AGENT.md
+        └── AGENTS.md
 ```
 
 **Deploy the orchestrator:**
@@ -116,7 +115,7 @@ Reviews connector code for credential handling and data exposure issues.
 
 **Rules:**
 - Max two levels deep: orchestrator → sub-agent. Never orchestrator → sub-agent → sub-agent.
-- Each sub-agent is self-contained: its own `AGENT.md`, harness file, and `skills/`.
+- Each sub-agent is self-contained: its own `AGENTS.md`, harness file, and `skills/`.
 - The orchestrator delegates; it does not duplicate sub-agent logic.
 - Sub-agents can be activated directly (by `cd agents/perf` in some harnesses) or invoked by the orchestrator when the user's request matches their domain.
 
@@ -126,9 +125,9 @@ Reviews connector code for credential handling and data exposure issues.
 
 ```
 agent-builder/
-├── GEMINI.md              # Gemini CLI thin init — references AGENT.md
-├── CLAUDE.md              # Claude Code thin init — references AGENT.md
-├── AGENT.md               # Harness-agnostic core: mandates, workflow, QA
+├── GEMINI.md              # Gemini CLI thin init — references AGENTS.md
+├── CLAUDE.md              # Claude Code thin init — references AGENTS.md
+├── AGENTS.md              # Harness-agnostic core: mandates, workflow, QA
 ├── CONTEXT.md             # Domain model: glossary, scoring rules, archetypes
 ├── README.md              # This file
 │
@@ -141,7 +140,7 @@ agent-builder/
         └── agent-builder -> ../../skills/agent-builder
 ```
 
-Adding a new harness is a one-file operation: create a thin init (e.g., `CURSOR.md`) that sets the identity header and references `AGENT.md` and `CONTEXT.md`. No logic duplication required.
+Adding a new harness is a one-file operation: create a thin init (e.g., `CURSOR.md`) that sets the identity header and references `AGENTS.md` and `CONTEXT.md`. No logic duplication required.
 
 ## Supported agents
 

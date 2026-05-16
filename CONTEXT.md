@@ -22,7 +22,7 @@ Read this file before making any architectural decision.
 
 | File | Role |
 |---|---|
-| `GEMINI.md` / `CLAUDE.md` / … | Per-harness **thin init** — identity header + references to `AGENT.md` |
+| `GEMINI.md` / `CLAUDE.md` / … | Per-harness **thin init** — identity header + references to `AGENTS.md` |
 | `AGENTS.md` | **Harness-agnostic core** — all mandates, workflow, skill pipeline, QA |
 | `CONTEXT.md` | **Domain model** — this file; glossary, structure, scoring rules |
 | `SKILL.md` | Procedural skill with YAML frontmatter (`name`, `description`) |
@@ -36,7 +36,7 @@ Rule: root files reference sub-files; never duplicate content across levels.
 ├── agents/                   # Isolated agents directory
 │   └── <agent-name>/
 │       ├── SKILL.md          # Entry point for npx skills
-│       ├── AGENT.md          # Agent mandates (Source of Truth)
+│       ├── AGENTS.md         # Agent mandates (Source of Truth)
 │       └── ...
 ├── skills/                   # Discoverable skills (npx skills add)
 │   ├── <standalone-skill>/   # Standard standalone skill
@@ -62,7 +62,7 @@ Scoring factors: verification status, reputation, safety record, semantic match 
 |---|---|
 | **Standard** | 3–5 mandates, core workflow, one harness init file |
 | **Coding Agent** | Mandatory skills: `context7-cli`, `find-skills`, `find-docs`. Add "Coding Mandates" block. Set `coding_agent: true`. Knowledge hierarchy: Project Context → Live Docs → Specialized Skills → Trained Knowledge. |
-| **Multi-Agent** | Add `AGENTS.md` (human) and `agents.json` (machine) registry. Each sub-agent gets its own `AGENT.md`. Never exceed two levels. |
+| **Multi-Agent** | Add `AGENTS.md` (human + sub-agent registry) and `agents.json` (machine) registry. Each sub-agent gets its own `AGENTS.md`. Never exceed two levels. |
 
 ## Registry Format (Multi-Agent)
 
@@ -84,11 +84,20 @@ To ensure sub-agents are discoverable by both humans and machines, every orchest
 ## State Machine
 
 ```
+            ┌─────────────────────────────────┐
+            │  QA findings reveal root-cause   │
+            │  gaps in requirements/design     │
+            ▼                                   │
 [Grill] → [Design] → [Build] → [QA] → [MCP Config] → Ready
+  ▲                                      │
+  └──────────────────────────────────────┘
+     Loop back: challenge the assumptions that
+     produced the findings, sharpen the brief,
+     and rebuild until no Critical/High remain.
 ```
 
 1. **Grill** — requirements gathering until brief is complete.
 2. **Design** — architecture (single vs. multi-agent), skill pipeline (Buy/Make), harness selection.
 3. **Build** — emit output bundle for chosen harness.
-4. **QA** — `npx @reporails/cli check`; no Critical/High findings.
+4. **QA** — `npx @reporails/cli check`. If Critical/High findings exist, loop back to Grill: challenge the assumptions in the requirements brief that produced the gaps. Sharpen the brief, re-Design, and re-Build. Repeat until zero Critical/High findings.
 5. **MCP Config** — select and emit MCP server config block.

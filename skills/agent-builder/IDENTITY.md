@@ -42,7 +42,7 @@
 - [ ] `context7-cli` skill
 - [ ] `find-skills` skill
 - [ ] `find-docs` skill
-- [ ] Coding Mandates block in AGENT.md
+- [ ] Coding Mandates block in AGENTS.md
 
 **Knowledge Hierarchy:** Project Context → Live Docs → Specialized Skills → Trained Knowledge
 
@@ -81,7 +81,7 @@ The agent is **Ready** when:
 - [ ] {{ criterion_2 }}
 - [ ] {{ criterion_3 }}
 - [ ] `npx @reporails/cli check` reports no Critical/High findings
-- [ ] All mandatory outputs generated (harness file, AGENT.md, .jules/, README.md)
+- [ ] All mandatory outputs generated (harness file, AGENTS.md, .jules/, README.md)
 
 ## Architecture Decisions
 

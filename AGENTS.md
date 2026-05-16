@@ -75,7 +75,7 @@ Generate the output bundle for the chosen harness. Agents and their specific ski
 
 **Mandatory Outputs:**
 1. **Primary Harness File:** (e.g., `GEMINI.md`, `CLAUDE.md`) — The entry point.
-2. **Core Instructions:** (`AGENT.md`) — The source of truth for mandates and workflow.
+2. **Core Instructions:** (`AGENTS.md`) — The source of truth for mandates and workflow.
 3. **Google Jules Version:** (`.jules/<agent-name>.md`) — A persona-driven companion for the Jules harness.
 4. **README.md:** With `degit` installation instructions.
 
@@ -100,20 +100,19 @@ Use an **orchestrator + sub-agents** structure when scope exceeds one domain:
 ```
 <project-root>/
 ├── GEMINI.md        # Orchestrator harness file
-├── AGENT.md         # Orchestrator core instructions
-├── AGENTS.md        # Sub-agent registry (routing table)
+├── AGENTS.md        # Orchestrator core instructions + sub-agent registry
 └── agents/
     └── <specialist>/   # degit-deployed sub-agent
         ├── GEMINI.md
-        ├── AGENT.md
+        ├── AGENTS.md
         └── skills/
 ```
 
-`AGENTS.md` is the routing table: one section per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
+Include a "Sub-agents" section in `AGENTS.md`: one entry per sub-agent, describing its domain and when to delegate to it. Harnesses that support sub-agent discovery (Claude Code, Gemini CLI) read this automatically.
 
 **Architecture rules:**
 - Max two levels: orchestrator → sub-agent. Never deeper.
-- Each sub-agent is self-contained: its own `AGENT.md`, harness file, and `skills/`.
+- Each sub-agent is self-contained: its own `AGENTS.md`, harness file, and `skills/`.
 - The orchestrator delegates; it never duplicates sub-agent logic.
 - Every agent (including sub-agents) must have a root-level `README.md` with a degit deploy command.
 
@@ -135,7 +134,7 @@ For every agent built, you MUST generate a companion Google Jules version.
 ├── agents/                   # Isolated agents
 │   └── <agent-name>/
 │       ├── SKILL.md          # Propagation Entry Point (optional — for npx skills)
-│       ├── AGENT.md          # Harness-agnostic core (Source of Truth)
+│       ├── AGENTS.md         # Harness-agnostic core (Source of Truth)
 │       ├── .gitignore        # Negates root .agents/ exclusion so skills are tracked
 │       ├── README.md         # degit deploy command + usage
 │       ├── <HARNESS>.md      # Thin identity files (GEMINI.md, CLAUDE.md, CURSOR.md)
@@ -156,10 +155,9 @@ For every agent built, you MUST generate a companion Google Jules version.
 - **Source of Truth:** Agent folder is self-contained — harness files reference `.agents/skills/<skill-name>/SKILL.md` for all dedicated skills.
 
 **Instruction hierarchy:**
-- Per-harness init file: identity header + references to `AGENT.md` and `CONTEXT.md` only.
-- `AGENT.md`: all mandates, workflow, and archetypes (this file).
-- `AGENTS.md`: list and describe available sub-agents.
-- `AGENT.md` (sub-agent): role, mandates, and toolset for a specific sub-agent.
+- Per-harness init file: identity header + references to `AGENTS.md` and `CONTEXT.md` only.
+- `AGENTS.md`: all mandates, workflow, and archetypes (this file).
+- `AGENTS.md` (sub-agent): role, mandates, and toolset for a specific sub-agent.
 - `SKILL.md`: procedural guidance with YAML frontmatter (`name`, `description`).
 - Root files reference sub-files; never duplicate content.
 
@@ -169,6 +167,7 @@ For every agent built, you MUST generate a companion Google Jules version.
 - Always verify APIs against live docs before coding. Always search for and update tests after code changes.
 
 ### Step 4 — QA (Reporails)
+
 Run the instruction diagnostics tool on all generated files:
 
 ```bash
@@ -177,9 +176,16 @@ npx @reporails/cli check
 
 - Checks 92+ deterministic rules across Structure, Coherence, Direction, Efficiency, Maintenance, Governance.
 - Parse findings: Conflicts, Redundancy, Safety Gaps, Clarity Issues.
-- Auto-fix Critical/High findings or present a remediation checklist.
 - For full cross-file diagnostics: `npx @reporails/cli auth login`.
-- An agent is "Ready" only when: score ≥ threshold, no Critical/High findings, self-assessment loop is initialized.
+
+**This is an iterative feedback loop, not a one-pass gate.** QA findings are symptoms of root-cause gaps in the requirements brief or architecture. When Critical/High findings are present:
+
+1. **Diagnose:** Map each finding back to the assumption in the requirements brief or design decision that produced it.
+2. **Loop back to Step 1:** Re-enter the Grill phase — challenge those assumptions against the domain model, sharpen the brief, and update CONTEXT.md/ADRs inline.
+3. **Re-Design and Re-Build:** Adjust architecture and output bundle to reflect the corrected brief.
+4. **Re-run QA:** Repeat until zero Critical/High findings remain.
+
+An agent is **Ready** only when: no Critical/High findings and self-assessment loop is initialized.
 
 ### Step 5 — MCP Configuration
 Guide the user through selecting MCP servers relevant to their agent's domain:
